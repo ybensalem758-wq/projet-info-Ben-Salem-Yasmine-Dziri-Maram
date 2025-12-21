@@ -59,7 +59,7 @@ def analyser_donnees(nom_fichier_entree):
     # Calcul Log10 du count
     df['log_count'] = df['counts_live_bacteria'].apply(lambda x: math.log10(x) if x > 0 else 0)
     
-    # --- Fécal ---
+    # Fécal
     df_fecal = df[df['sample_type'] == 'fecal'][['mouse_id', 'treatment', 'experimental_day', 'counts_live_bacteria']]
     df_fecal.to_csv("filtered_fecal.csv", sep=';', index=False)
     
@@ -73,14 +73,14 @@ def analyser_donnees(nom_fichier_entree):
         donnees_courbes[m_id]['x'].append(row['experimental_day'])
         donnees_courbes[m_id]['y'].append(row['log_count'])
     
-    # --- Cécal ---
+    # Cécal
     df_cecal = df[(df['sample_type'] == 'cecal') & (df['mouse_age_days'] == 21)][['treatment', 'counts_live_bacteria']]
     df_cecal.to_csv("filtered_cecal.csv", sep=';', index=False)
     
     cecal_abx = df_cecal[df_cecal['treatment'] == 'ABX']['counts_live_bacteria'].apply(lambda x: math.log10(x)).tolist()
     cecal_plb = df_cecal[df_cecal['treatment'] == 'PLB']['counts_live_bacteria'].apply(lambda x: math.log10(x)).tolist()
     
-    # --- Iléal ---
+    # Iléal 
     df_ileal = df[(df['sample_type'] == 'ileal') & (df['mouse_age_days'] == 21)][['treatment', 'counts_live_bacteria']]
     df_ileal.to_csv("filtered_ileal.csv", sep=';', index=False)
     
@@ -89,7 +89,7 @@ def analyser_donnees(nom_fichier_entree):
     
     print("Fichiers CSV filtrés générés (filtered_fecal.csv, filtered_cecal.csv, filtered_ileal.csv)")
     
-    # --- Graphique 1 : Courbes fécal ---
+    # Graphique 1 : Courbes fécal 
     plt.figure(figsize=(10, 6))
     for m_id in donnees_courbes:
         d = donnees_courbes[m_id]
