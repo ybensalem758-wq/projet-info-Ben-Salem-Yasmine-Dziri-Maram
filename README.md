@@ -10,8 +10,8 @@ def generer_fichier_test(nom_fichier="data_small.csv", n_souris=20):
     0:strain, 1:exp_id, 2:sample_type, 3:timepoint, 4:mouse_id, 
     5:treatment, 6:freq, 7:exp_day, 8:count, 9:age_days, 10:sex
     """
-    print(f"Génération du fichier de test : {nom_fichier} ")
-    f = open(nom_fichier, "w")
+    print(f"Génération du fichier de test:{nom_fichier} ")
+    f = open(nom_fichier,"w")
     # En-tête standard
     f.write("mouse_strain;experiment_id;sample_type;timepoint;mouse_id;treatment;"
             "frequency_live_bacteria;experimental_day;counts_live_bacteria;mouse_age_days;mouse_sex\n")
@@ -112,7 +112,7 @@ def analyser_donnees(nom_fichier_entree):
             line = fd.readline()
             continue
 
-        # --- CAS 1 : DONNÉES FÉCALES (Graphique Lignes) ---
+        # CAS 1 : DONNÉES FÉCALES (Graphique Lignes)
         # Filtrage Ligne : sample_type == 'fecal'
         if sample_type == 'fecal':
             # Filtrage Colonne pour CSV : ID, Traitement, Jour, Quantité
@@ -127,7 +127,7 @@ def analyser_donnees(nom_fichier_entree):
             donnees_courbes[mouse_id]['x'].append(exp_day)
             donnees_courbes[mouse_id]['y'].append(log_count)
 
-        # --- CAS 2 : DONNÉES CÉCALES (Graphique Violon) ---
+        # CAS 2 : DONNÉES CÉCALES (Graphique Violon)
         # Filtrage Ligne : sample_type == 'cecal' ET jour 21 (sacrifice)
         elif sample_type == 'cecal' and age_days == 21:
             # Filtrage Colonne pour CSV : Traitement, Quantité (Plus d'ID)
@@ -140,7 +140,7 @@ def analyser_donnees(nom_fichier_entree):
             else:
                 cecal_plb.append(log_count)
 
-        # --- CAS 3 : DONNÉES ILÉALES (Graphique Violon) ---
+        # CAS 3 : DONNÉES ILÉALES (Graphique Violon)
         # Filtrage Ligne : sample_type == 'ileal' ET jour 21 (sacrifice)
         elif sample_type == 'ileal' and age_days == 21:
             # Filtrage Colonne pour CSV : Traitement, Quantité
@@ -163,7 +163,7 @@ def analyser_donnees(nom_fichier_entree):
     print("Fichiers CSV filtrés générés (filtered_fecal.csv, etc.)")
     
     
-    # --- Graphique 1 : Courbes (Fécal) ---
+    # Graphique 1 : Courbes (Fécal)
     plt.figure(figsize=(10, 6))
     
     # On parcourt le dictionnaire rempli précédemment
@@ -190,7 +190,7 @@ def analyser_donnees(nom_fichier_entree):
     plt.savefig("graphique_lignes_fecal.png")
     print("Graphique lignes généré : graphique_lignes_fecal.png")
 
-    # --- Graphique 2 : Violons (Cécal & Iléal) ---
+    #Graphique 2 : Violons (Cécal & Iléal)
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
 
     # Cécal 
